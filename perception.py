@@ -1,4 +1,3 @@
-#import matplotlib.pyplot as pyplot
 import numpy
 
 print('perception')
