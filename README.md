@@ -10,7 +10,7 @@ pip3 install --user --upgrade virtualenv
 ```
 virtualenv env
 ```
-* activate environment everytime when use with: 
+* activate environment __everytime when use it__: 
 ```
 source env/bin/activate
 ```
