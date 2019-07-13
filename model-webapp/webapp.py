@@ -1,52 +1,41 @@
 import pickle
 import flask
 from flask import request
+import numpy as np
 
 app = flask.Flask(__name__)
 
 #loading my model
 model = pickle.load(open("model.pkl","rb"))
 
-# 2d array
-# curl localhost:5000/ -d '{"feature_array":"[[0.1, 0.2, 0.3], [1.0, 2.0, 3.0]]"}'
-array2d = [[0.1, 0.2, 0.3], [1.0, 2.0, 3.0]]
-
-# access with
-# curl localhost:5000/ -d '{"feature_array": "bar"}'
-@app.route('/', methods=['POST'])
-def index():
-
-    print('predictions...')
-
-    #getting an array of features from the post request's body
-    # force json=true. we dont need to sent application/json mimetype then.
-    # # curl localhost:5000/ -d '{"feature_array": "bar"}' -H 'Content-Type: application/json'
-    feature_array = request.get_json(force=True)['feature_array']
-
-    print(feature_array)
-
-    #creating a response object
-    #storing the model's prediction in the object
-    response = {}
-    response['predictions'] = model.predict([feature_array]).tolist()
-
-    print(response)
-
-    #returning the response object as json
-    return flask.jsonify(response)
-
-@app.route('/dev', methods=['POST'])
+# curl -i -H "Content-Type: application/json" -X POST -d '{"feature_array":[[0.55298, -3.4619, 1.7048, 1.1008]]}' http://127.0.0.1:5000/predict
+# HTTP/1.0 200 OK
+# Content-Type: application/json
+# Content-Length: 32
+# Server: Werkzeug/0.15.4 Python/3.5.3
+# Date: Sat, 13 Jul 2019 21:42:13 GMT
+#
+# {
+#   "prediction": [
+#     1
+#   ]
+# }
+@app.route('/predict', methods=['POST'])
 def dev():
-    print('dev...')
+    # force json=true. we dont need to sent application/json mimetype then.
     feature_array = request.get_json(force=True)['feature_array']
     print(feature_array)
-
-    print('predictions...')
+    print(type(feature_array))
+    print('prediction')
     response = {}
-    response['predictions'] = model.predict([feature_array]).tolist()
+    response['prediction'] = model.predict(feature_array).tolist()
+    print(response['prediction'])
 
-    return '<code>dev</code>'
+    return flask.jsonify(response)
 
 @app.route('/ping')
 def ping():
-    return '<code>ping</code>'
+    return '<code>pong</code>'
+
+if __name__ == '__main__':
+    app.run(debug=True)
