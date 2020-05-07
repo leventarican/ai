@@ -27,6 +27,9 @@ if __name__ == '__main__':
     app.run(debug=True)
 ```
 
+# ML
+* Machine learning is rapidly moving closer to where data is collected — edge devices.
+
 # links
 famous ml dataset: fisher's iris data set (iris.data)
 https://archive.ics.uci.edu/ml/datasets/iris
