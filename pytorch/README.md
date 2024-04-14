@@ -4,7 +4,7 @@ PyTorch examples
 
 The MNIST dataset is a well-known dataset of handwritten digits, consisting of 60,000 training images and 10,000 test images. Each image is a grayscale image of size 28x28 pixels.
 
-A common PyTorch convention is to save models using either a .pt or .pth file extension.
+A common PyTorch convention is to save models using either a .pt or .pth file extension. Also called PyTorch model __checkpoint__ files.
 * https://pytorch.org/tutorials/beginner/saving_loading_models.html
 
 # run
